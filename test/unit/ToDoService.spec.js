@@ -1,0 +1,29 @@
+describe('toDoService', function() {
+  beforeEach(module('toDoApp'));
+
+  var toDoService, httpBackend;
+
+  var toDoData = [{text: "ToDo1", completed: true}, {text: "ToDo2", completed: false}];
+
+  beforeEach(inject(function(_toDoService_, _ToDoFactory_, $httpBackend) {
+    toDoService = _toDoService_;
+    ToDoFactory = _ToDoFactory_;
+    httpBackend = $httpBackend;
+  }));
+
+  it('fetches a list of todos', function(){
+
+
+    httpBackend.expectGET("http://quiet-beach-24792.herokuapp.com/todos.json").respond(toDoData);
+
+    var todo1 = new ToDoFactory("ToDo1", true);
+    var todo2 = new ToDoFactory("ToDo2", false);
+
+    toDoService.getAll().then(function(todos) {
+
+      expect(todos).toEqual([todo1, todo2]);
+    });
+
+    httpBackend.flush();
+  });
+});
