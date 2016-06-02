@@ -1,13 +1,14 @@
-describe("app", function() {
-  it("should get home page title", function() {
+describe('Todos tracker', function() {
+  it('has a todo', function() {
     browser.get('/');
-    expect(browser.getTitle()).toEqual("Todos App");
+    var todo = $('#todo');
+    expect(todo.getText()).toEqual('ToDo1');
   });
 });
 
-describe("app", function() {
-  it("should say 'Hello world' on the page", function() {
+describe("toDoApp", function() {
+  it("should get home page title", function() {
     browser.get('/');
-    expect($$("p").first().getText()).toEqual("Hello world");
+    expect(browser.getTitle()).toEqual("Todos App");
   });
 });
