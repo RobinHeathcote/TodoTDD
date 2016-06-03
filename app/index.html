@@ -11,10 +11,17 @@
   </head>
   <body>
     <div id="todos" ng-controller="ToDoController as controller">
+      <p ng-model="toDosCount">Number of Tasks:{{controller.toDosCount()}}</p>
+      [ <a href="" ng-click="controller.archive()">archive</a> ]
+      <select ng-model="showCompleted">
+        <option value="" selected>All</option>
+        <option value="true">Completed</option>
+        <option value="false">Not Completed</option>
+      </select>
       <input id="new-todo-name" type="text" ng-model="todoText">
       <button id="add-todo" ng-click="controller.addToDo(todoText);">Add a ToDo</button>
       <button id="remove-todo" ng-click="controller.removeToDo();">Remove last ToDo</button>
-      <p ng-repeat="todo in controller.todos">
+      <p ng-repeat="todo in controller.todos | filter:showCompleted">
         {{ todo.text }}: {{ todo.completed ? "completed" : "not completed" }}
         <button class="complete" ng-click="todo.complete();">Complete</button>
       </p>
